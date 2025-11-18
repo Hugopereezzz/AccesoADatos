@@ -1,0 +1,5 @@
+package org.cifpAviles.pruebaSpring.controller;
+
+public class EmpleadoController {
+
+}
