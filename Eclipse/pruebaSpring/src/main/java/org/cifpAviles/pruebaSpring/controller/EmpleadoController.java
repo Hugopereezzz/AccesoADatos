@@ -1,9 +1,15 @@
 package org.cifpAviles.pruebaSpring.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.cifpAviles.pruebaSpring.entities.Empleado;
 import org.cifpAviles.pruebaSpring.services.EmpleadoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -24,8 +30,38 @@ public class EmpleadoController {
 	}
 	
 	@ModelAttribute("Empleados")
-	public List<Empleados> listaEmpleados(){
-		
+	public List<Empleado> listaEmpleados(){
+		return empleadoService.finAll();
 	}
-
-}
+	
+	@GetMapping("nuevo_empleado")
+	public String mostarFormulario(Model model) {
+		model.addAttribute("empleado", new Empleado());
+		return "crear_empleado";
+	}
+	
+	@PostMapping("add_empleado")
+	public String crearEmpleado(@ModelAttribute Empleado empleado) {
+		empleadoService.insert(empleado);
+		return "pagina_Exito";
+	}
+	
+	@GetMapping("buscar_empleado")
+	public String mostarFormularioBuscar(Model model) {
+		model.addAttribute("empleado", new Empleado());
+		return "buscar_empleado";
+	}
+	
+	@PostMapping("get_empleado")
+	public String obtenerEmpleadoPorId(@ModelAttribute Empleado empleado, Model model) {
+		Optional<Empleado> emp = empleadoService.findById(empleado.getId());
+		model.addAttribute("empleado", (Empleado)emp.get());
+		return "pagina_exito";
+	}
+	
+	@PostMapping("delete_empleado")
+	public String borrarEmpleado(@ModelAttribute Empleado empleado, Model model) {
+		empleadoService.borrar(empleado);
+		return "pagina_exito";
+	}
+}	

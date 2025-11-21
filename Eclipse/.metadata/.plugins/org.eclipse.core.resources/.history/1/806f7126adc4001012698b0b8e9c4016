@@ -1,0 +1,6 @@
+<html>
+	<head></head>
+	<body>
+		<form action="/empleado/add_empleado" method="post" th:object="${empleado}"></form>
+	</body>
+</html>

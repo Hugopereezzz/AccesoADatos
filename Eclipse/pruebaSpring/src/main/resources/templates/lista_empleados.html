@@ -5,6 +5,14 @@
 	<body>
 		<h1>Lista Empleados</h1>
 		
-		<p th:text="${nombre}"></p>
+		<table>
+			<tr>
+				<th>id</th>
+				<th>Nombre</th>
+			</tr>
+			<tr th:each="empleado:${Empleados}">
+				<td th:text="${empleado.id}"></td>
+				<td th:text="${empleado.nombre}"></td>
+			</tr>
 	</body>
 </html>
